@@ -1,0 +1,217 @@
+
+.tabs{ /*Définition bordure des tableaux*/
+	border:solid 1px #000;
+}
+.tabs_head{ /*Définition des intitulés des tableaux*/
+	border-bottom:solid 1px #aaa; /*bordure du bas*/
+	background-color:#660099; /*couleur de fond*/
+}
+
+.tabs_head>span{ /*mise en forme des span dans les intitulés de tableau*/
+	display:inline-block;
+	cursor:pointer;              /*souris devient un pointeur*/
+	padding:0px 5px;             /*écarts de remplissage*/
+	border-right:solid 1px #aaa; /*bordure droite*/
+	background-color:#660099;  /*couleur de fond*/
+	transition:all 0.2s ease;  /*durée de transition*/
+	color: #d1d9ff;            /*couleur des caractères*/
+	
+}
+
+.tabs_head>span.tab_selected{ /*change la couleur de fond lorsque l'onglet est sélectionné*/
+	background-color:#0000CD;
+}
+
+.tabs_content>div{ /*mise en forme des div dans les contenus de tableau*/
+	display:block;
+	overflow:hidden;
+	max-height:0px;
+	transition:all 0.2s ease;
+}
+.tabs_content>div.tab_selected{ 
+	max-height:20000px;  /*Longueur max du tableau*/
+}
+
+
+.sectiontype h3{ /*Mise en forme titres des onglets*/
+	text-transform: uppercase;  /*en majuscule*/
+	font-weight: bold;  /*en gras*/
+		
+}
+
+/*mise en forme des intitulés de colonne*/
+.lineColumn{
+	border-bottom:solid 2px #d1d9ff; /*bordure du bas*/
+	border-top:solid 2px #d1d9ff;    /*bordure du haut*/
+	font-weight: bold;               /*caractères en gras*/               
+	color : #d1d9ff;                 /*couleur des caractères*/
+	background-image : linear-gradient(to right, #660099, #0000CD, #660099);  /*fond en dégradé*/
+}
+
+
+/*mise en forme des span des intitulés de colonnes*/
+.lineColumn span{
+	text-transform: uppercase;  /*caractères en Majuscule*/
+	font-size: medium;          /*taille des caractères*/
+	display:inline-block;
+	width:145px; 				/*largeur*/
+	text-align: center;			/*texte centré*/
+	
+}
+
+ 
+.lineColumn span+span{         /*supprime les redondances de ligne*/
+	border-left:none;
+}
+
+
+/*mise en forme du contenu des tableaux*/
+.line{
+	border-bottom:solid 2px #d1d9ff;
+	border-top:solid 2px #d1d9ff;
+}
+
+
+.line+.line{ 					/*supprime les redondances de ligne*/
+border-top:none;
+}
+
+/*mise en forme des span du contenu des tableaux*/
+.line span{
+	text-transform: uppercase;  /*caractères en Majuscule*/
+	font-size: medium;			/*taille des caractères*/
+	display:inline-block;
+	width:145px;				/*largeur*/
+	text-align: center;			/*texte centré*/
+	
+}
+
+ 
+.line span+span{         /*supprime les redondances de ligne*/
+	border-left:none;
+}
+
+
+.headerband{                /*Caractérise une banderole d'entete*/
+	color : #eeffff;
+	font-size : 300%;
+	background-image : linear-gradient(to right, #660099, #0000CD, #660099); /*Cette commande permet d'afficher un dégradé*/
+	box-shadow: 1px 1px 20px #555; /*Ajoute une ombre sous l'élément concerné*/
+	text-transform: uppercase;
+}
+
+.searchbar{  /*modifie la couleur et la taille de la barre de recherche*/
+	background-color: #5C79DB;
+	font-size: 50%;
+	color:#000051;
+}
+
+
+.fond{  
+	Background-color : #40826D; /*Indique la couleur de fond de tout le site*/
+	color : #FFF   /*Indique la couleur de texte de tout le site*/
+}
+
+.button { /*Apparence de base d'un bouton*/
+  padding: 5px 8px;   /*écarts de remplissage*/  
+  font-size: 12px;    /*taille*/
+  text-align: center; /*texte centré*/
+  cursor: pointer;   /*souris devient un pointeur*/
+  color: #fff;       /*couleur des caractères*/
+  background-color: #524aac; /*couleur du fond*/
+  border: none;     /*bordures*/
+  border-radius: 5px;   /*angles arrondis*/ 
+}
+
+.button:hover {background-color: #19227c} /*Apparence d'un boutton lorsque la souris passe dessus*/
+
+.button:active { /*Apparence d'un boutton lorsque l'on clique dessus*/
+  background-color: #00004f;
+  transform: translateY(4px);
+}
+
+.interact{ /*Permet de modifier l'apparence du curseur lorsqu'il passe sur les éléments associés à cette classe*/
+	cursor : pointer;
+}
+
+
+.sectiontype{
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%; /*Modifie l'espace dédié au tableau par rapport à la largeur totale de l'écran*/
+}
+
+.legendaire {   /*Affichage doré des lignes du tableau contenant une arme légendaire*/
+    Background-color : #c49000;
+	color : #fff263
+}
+
+.epique {   /*Affichage violet des lignes du tableau contenant une arme épique*/
+    Background-color : #38006b;
+	color : #c7a4ff
+}
+
+.rare {   /*Affichage bleu des lignes du tableau contenant une arme rare*/
+    Background-color : #0069c0;
+	color : #6ec6ff
+}
+
+.inhabituelle {   /*Affichage vert des lignes du tableau contenant une arme inhabituelle*/
+    Background-color : #087f23;
+	color : #80e27e
+}
+
+.commune {   /*Affichage gris des lignes du tableau contenant une arme commune*/
+    Background-color : #707070;
+	color : #cfcfcf
+}
+
+@media screen and (max-width: 320px)      /*si l'écran présente une largeur inférieure à 320 pixels (écran de téléphone portable) les instructions qui suivent s'appliquent*/
+{
+    .fond /*Permet d'imposer la place que prend le contenu général du site par rapport à la bande de titre*/
+    {
+        font-size: 60%;
+    }
+	
+	.searchbar{     /*modifie la taille de la barre de recherche, sur un petit support elle prend plus de place dans la bande de titre*/
+	font-size: 120%;
+	}
+	
+	.sectiontype{
+	margin-left: auto;
+	margin-right: auto;
+	width: 95%; /*Agrandi l'espace dédié au tableau par rapport à la largeur totale de l'écran*/
+	}
+	
+	.imagetop{
+		display:none; /*Fait disparître les éléments concernés*/
+	}
+}
+
+@media screen and (max-width: 700px) /*si l'écran présente une largeur inférieure à 700 pixels les instructions qui suivent s'appliquent*/
+{
+    .fond /*Permet d'imposer la place que prend le contenu général du site par rapport à la bande de titre*/
+    {
+        font-size: 50%;
+    }
+	
+	.searchbar{     /*modifie la taille de la barre de recherche*/
+	font-size: 100%;
+	}
+	
+	.sectiontype{
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%; /*Modifie l'espace dédié au tableau par rapport à la largeur totale de l'écran*/
+	}
+}
+
+
+
+
+
+
+
+
+
+

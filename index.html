@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html ng-app="store"><!-- active le module 'store' (dans script.js) au chargement du document -->
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<title>Projet Web Design: Fortnite Loots</title>		<!--Titre du site-->
+		<script type="text/javascript" src="./vendor/angular/angular.js"></script>	<!--liens vers les fichiers utilisés par le site web-->
+		<script type="text/javascript" src="./js/script.js"></script>                
+		<link rel='stylesheet' type='text/css' href="./css/style.css" />
+		<link rel='stylesheet' type='text/css' href="./vendor/bootstrap/bootstrap.css" />
+		<link rel="shortcut icon" href="./data/images/logo.jpg" type="image/x-icon"/>	<!--Définit l'image qui apparaît en incône-->
+	</head>
+	<body ng-controller="storeController as storectrl" class=fond>	<!--Définition du controller-->
+		<div class=headerband style="text-align:center;"><header>  <!--Classe correspondant à l'entête du site-->
+			<b>
+				<span class=imagetop><img src="./data/images/arbalete.png"/></span> <!--images qui encadrent le titre, elles disparaissent si l'écran est trop petit-->
+				Fortnite Loots
+				<span class=imagetop><img src="./data/images/lance_grenade.png" /></span> <!--images qui encadrent le titre, elles disparaissent si l'écran est trop petit-->
+			</b>
+			</header>
+				<form name="infoForm">
+					<input class=searchbar type="text" ng-model="storectrl.searchlist.Arme" placeholder = "Rechercher..."/> <!--Barre de recherche des armes en fonction de leur nom-->
+				</form>
+		</div>
+		<br /> <!--saut de ligne-->
+		 
+		<section class=sectiontype> <!--Classe correspondant à la partie centrale du site-->
+		 
+			<div class="tabs">   <!--classe correspondant au menu des onglets-->
+				<div class="tabs_head">  <!--classe aux intitulés du menu-->
+					<span 
+					ng-click="storectrl.selectTab(1)"	
+					ng-class="{'tab_selected':storectrl.selectedTab===1}"
+					> 	<!--Selectionne le tableau 1 (listes des loots) lors du click sur cet onglet-->
+						<h3>Tableau des Loots</h3> <!--titre du tableau 1-->
+					</span>
+					<span
+					ng-click="storectrl.selectTab(2)"	
+					ng-class="{'tab_selected':storectrl.selectedTab===2}"
+					> <!--Selectionne le tableau 2 (listes des favoris) lors du click sur cet onglet-->
+						<h3>Mes Loots Favoris</h3> <!--titre du tableau 1-->
+					</span>
+				</div>
+				<div class="tabs_content"> <!--classe correspondant au contenu des tableaux-->
+					<div ng-class="{'tab_selected':storectrl.selectedTab===1}"> <!--correspond au contenu du tableau 1-->
+						<div class="lineColumn"> <!--Classe correspondant aux titres des colonnes-->
+							<!--définitions des boutons de tri selon différents critères:-->
+							<span>
+								Arme &nbsp;
+								<b ng-click="storectrl.order_by='Arme'" class=interact>↑</b>       
+								<b ng-click="storectrl.order_by='-Arme'" class=interact>↓</b>
+							</span>
+							<span>
+								Rareté &nbsp;
+								<b ng-click="storectrl.order_by='Rarete'" class=interact>↑</b>
+								<b ng-click="storectrl.order_by='-Rarete'" class=interact>↓</b>
+							</span>
+							<span>
+								Dégâts &nbsp;
+								<b ng-click="storectrl.order_by='-Degat'" class=interact>↑</b>
+								<b ng-click="storectrl.order_by='Degat'" class=interact>↓</b>
+							</span>
+							<span>
+								Head Shot &nbsp;
+								<b ng-click="storectrl.order_by='-HS'" class=interact>↑</b>
+								<b ng-click="storectrl.order_by='HS'" class=interact>↓</b>
+							</span>
+							<span>
+								Tirs/s  &nbsp;
+								<b ng-click="storectrl.order_by='-Tirsparseconde'" class=interact>↑</b>
+								<b ng-click="storectrl.order_by='Tirsparseconde'" class=interact>↓</b>
+							</span>
+							<span>
+								Dégâts/s &nbsp;
+								<b ng-click="storectrl.order_by='-DPS'" class=interact>↑</b>
+								<b ng-click="storectrl.order_by='DPS'" class=interact>↓</b>
+							</span>
+							<span>
+								Chargeur &nbsp;
+								<b ng-click="storectrl.order_by='-Tailleduchargeur'" class=interact>↑</b>
+								<b ng-click="storectrl.order_by='Tailleduchargeur'" class=interact>↓</b>
+							</span>
+							<span>
+								Charge(s) &nbsp;
+								<b ng-click="storectrl.order_by='-Tempsderechargement'" class=interact>↑</b>
+								<b ng-click="storectrl.order_by='Tempsderechargement'" class=interact>↓</b>
+							</span>
+						</div>
+						
+						<!--Classe correspondant au contenu du premier tableau: statistiques des armes-->
+						<!-- ng-class: permet de définir la couleur selon la rareté -->
+						<!-- ng-repeat: permet d'afficher l'ensemble des éléments de la list en suivant le tri choisi-->
+						<div class="line"
+						ng-class="{'commune' : loot.Rarete=='Commune', 'inhabituelle' : loot.Rarete=='+Inhabituelle+',
+						'rare' : loot.Rarete=='++Rare++', 'epique' : loot.Rarete=='*Epique*', 'legendaire' : loot.Rarete=='**Légendaire**'}" 
+						ng-repeat="loot in storectrl.list | orderBy: storectrl.order_by" 
+						ng-if="(loot.Arme|lowercase).includes((storectrl.searchlist.Arme|lowercase))"> <!--Compare le nom des armes du tableau avec le texte dans la barre de recherche et n'affiche que celles correspondantes, le tout est mis en minuscule pour faciliter la recherche sans prendre en compte la mise de majuscule-->
+							<span>{{loot.Arme}}</span>
+							<span>{{loot.Rarete|renommerRarete}}</span> <!--le filtre renommerRarete permet de retirer les caractères * et + qui ont servi au tri par rarete-->
+							<span>{{loot.Degat}}</span>
+							<span>{{loot.HS}}</span>
+							<span>{{loot.Tirsparseconde}}</span>
+							<span>{{loot.DPS}}</span>
+							<span>{{loot.Tailleduchargeur}}</span>
+							<span>{{loot.Tempsderechargement}}</span>
+							<span>
+								<input class=button type="button" value="Ajouter à mes favoris" ng-click="storectrl.ajoutFavoris(loot.Arme,loot.Rarete,loot.Degat,
+								loot.HS,loot.Tirsparseconde,loot.DPS,loot.Tailleduchargeur,loot.Tempsderechargement,loot.picture)" /> <!--bouton permettant d'ajouter l'arme dans les favoris  -->
+							</span>
+						</div>
+					</div>
+					<div ng-class="{'tab_selected':storectrl.selectedTab===2}"> <!--correspond au contenu du tableau 2 (liste des favoris)-->
+						<div class="lineColumn">  <!--Classe correspondant aux titres des colonnes-->
+							<span>
+								Arme
+							</span>
+							<span>
+								Rareté 
+							</span>
+							<span>
+								Dégât 
+							</span>
+							<span>
+								Head Shot 
+							</span>
+							<span>
+								Tirs/s 
+							</span>
+							<span>
+								Dégâts/s 
+							</span>
+							<span>
+								Chargeur
+							</span>
+							<span>
+								Charge (s)
+							</span>
+							<span>
+								Images <button class=button type="button" ng-show="storectrl.vueimage" ng-click="storectrl.ImageOff(false)">Afficher les images</button> <!--Bouton permettant d'afficher les images associées aux armes, il n'apparaît que si la variable vueimage est vraie-->
+								<button class=button type="button" ng-hide="storectrl.vueimage" ng-click="storectrl.ImageOff(true)">Cacher les images</button> <!--ce bouton permettant de masquer les images disparaît si la variable vueimage est vraie-->
+							</span>
+		
+						</div>
+						
+						<!--Classe correspondant au contenu du second tableau: statistiques des loots favoris-->
+						<!-- ng-class permet de définir la couleur selon la rareté -->
+						<!-- ng-repeat permet d'afficher l'ensemble des éléments de la list en suivant le tri choisi-->
+						<div class="line" 
+						ng-class="{'commune' : info.Rarete=='Commune', 'inhabituelle' : info.Rarete=='+Inhabituelle+',
+						'rare' : info.Rarete=='++Rare++', 'epique' : info.Rarete=='*Epique*', 'legendaire' : info.Rarete=='**Légendaire**'}" 
+						ng-repeat="info in storectrl.infoList" 	
+						ng-if="(info.Arme|lowercase).includes((storectrl.searchlist.Arme|lowercase))"> <!--Compare le nom des armes du tableau avec le texte dans la barre de recherche et n'affiche que celles correspondantes, le tout est mis en minuscule pour faciliter la recherche sans prendre en compte la mise de majuscule-->
+							<span>{{info.Arme}}</span>
+							<span>{{info.Rarete|renommerRarete}}</span>  <!--le filtre renommerRarete permet de retirer les caractères * et + qui ont servi au tri par rarete-->
+							<span>{{info.Degat}}</span>
+							<span>{{info.HS}}</span>
+							<span>{{info.Tirsparseconde}}</span>
+							<span>{{info.DPS}}</span>
+							<span>{{info.Tailleduchargeur}}</span>
+							<span>{{info.Tempsderechargement}}</span>
+							<img class="imagearme" ng-hide="storectrl.vueimage" src="./data/images/{{info.picture}}.png" /> <!--Classe correspondant à l'affichage des armes-->
+							<span>
+								<input class=button type="button" value="Supprimer favoris" ng-click="storectrl.supprimerFavoris($index)" /> <!--bouton permettant d'afficher/cacher l'image de l'arme-->
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>
+
+
+
